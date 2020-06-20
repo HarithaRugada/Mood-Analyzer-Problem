@@ -5,24 +5,45 @@ import org.junit.Test;
 
 public class MoodAnalyzerTest
 {
+    MoodAnalyzer moodAnalyzer=new MoodAnalyzer();
+
     @Test
     public void whenSadMessage_shouldReturnSad()
     {
-        MoodAnalyzer moodAnalyzer=new MoodAnalyzer("I am in sad Mood");
-        Assert.assertEquals("SAD",moodAnalyzer.analyzeMood());
+        String actualMessage=moodAnalyzer.analyzeMood("I am in a sad mood");
+        Assert.assertEquals("SAD",actualMessage);
     }
 
     @Test
     public void whenHappyMessage_shouldReturnHappy()
     {
-        MoodAnalyzer moodAnalyzer=new MoodAnalyzer("I am in Happy mood");
-        Assert.assertEquals("HAPPY", moodAnalyzer.analyzeMood());
+        String actualMessage=moodAnalyzer.analyzeMood("I am in a happy mood");
+        Assert.assertEquals("HAPPY",actualMessage);
     }
 
     @Test
-    public void whenNullMessage_shouldReturnHappy()
+    public void whenNullMessage_shouldThrowException()
     {
-        MoodAnalyzer moodAnalyzer=new MoodAnalyzer(null);
-        Assert.assertEquals("HAPPY",moodAnalyzer.analyzeMood());
+        try
+        {
+            moodAnalyzer.analyzeMood(null);
+        }
+        catch(MoodAnalyzerException moodAnalyzerException)
+        {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.ENTERED_NULL,moodAnalyzerException.exceptionType);
+        }
+    }
+
+    @Test
+    public void whenEmptyMessage_shouldThrowException()
+    {
+        try
+        {
+            moodAnalyzer.analyzeMood("");
+        }
+        catch(MoodAnalyzerException moodAnalyzerException)
+        {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.ENTERED_EMPTY,moodAnalyzerException.exceptionType);
+        }
     }
 }
