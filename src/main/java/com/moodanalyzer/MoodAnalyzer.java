@@ -1,7 +1,21 @@
 package com.moodanalyzer;
 
 public class MoodAnalyzer {
-    public String analyzeMood(String message) {
+    String message;
+    public MoodAnalyzer()
+    {
+        this.message="";
+    }
+    public MoodAnalyzer(String message)
+    {
+        this.message=message;
+    }
+    public String MoodAnalyzer(String message) throws MoodAnalyzerException
+    {
+        this.message=message;
+        return analyzeMood();
+    }
+    public String analyzeMood() {
         try {
             if (message.length() == 0) {
                 throw new MoodAnalyzerException("Please enter a string that is not empty", MoodAnalyzerException.ExceptionType.ENTERED_EMPTY);
