@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class MoodAnalyzerFactory {
+public class MoodAnalyzerReflector {
 
     public static MoodAnalyzer createMoodAnalyzer(String message) throws MoodAnalyzerException {
         try {

@@ -1,6 +1,5 @@
 package com.moodanalyzer;
 
-import javafx.animation.ScaleTransition;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -40,7 +39,7 @@ public class MoodAnalyzerTest {
     public void givenMoodAnalyzerClass_WhenProper_shouldReturnObject() {
         //String mood=moodAnalyzer.analyzeMood();
         //Assert.assertEquals("HAPPY",mood);
-        MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer("happy mood");
+        MoodAnalyzer moodAnalyzer = MoodAnalyzerReflector.createMoodAnalyzer("happy mood");
         try {
             String mood = moodAnalyzer.analyzeMood();
             Assert.assertEquals("HAPPY", mood);
@@ -53,7 +52,7 @@ public class MoodAnalyzerTest {
     public void givenClassName_whenImproper_shouldThrowException() {
         //MoodAnalyzer moodAnalyzer=null;
         try {
-            MoodAnalyzerFactory.createMoodAnalyzer(null);
+            MoodAnalyzerReflector.createMoodAnalyzer(null);
         } catch (MoodAnalyzerException moodAnalyzerException) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, moodAnalyzerException.exceptionType);
         }
@@ -62,7 +61,7 @@ public class MoodAnalyzerTest {
     @Test
     public void givenClass_whenConstructor_Improper_shouldThrowException() {
         try {
-            MoodAnalyzerFactory.createMoodAnalyzer(null);
+            MoodAnalyzerReflector.createMoodAnalyzer(null);
         } catch (MoodAnalyzerException moodAnalyzerException) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, moodAnalyzerException.exceptionType);
         }
@@ -72,7 +71,7 @@ public class MoodAnalyzerTest {
     public void givenMoodAnalyzerClass_WhenProper_withParameter_shouldReturnObject() {
         //String mood=moodAnalyzer.analyzeMood();
         //Assert.assertEquals("HAPPY",mood);
-        MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer("I am in a sad mood");
+        MoodAnalyzer moodAnalyzer = MoodAnalyzerReflector.createMoodAnalyzer("I am in a sad mood");
         try {
             String mood = moodAnalyzer.analyzeMood();
             Assert.assertEquals("SAD", mood);
@@ -85,7 +84,7 @@ public class MoodAnalyzerTest {
     public void givenClassName_whenImproper_withParameter_shouldThrowException() {
         //MoodAnalyzer moodAnalyzer=null;
         try {
-            MoodAnalyzerFactory.createMoodAnalyzer(null);
+            MoodAnalyzerReflector.createMoodAnalyzer(null);
         } catch (MoodAnalyzerException moodAnalyzerException) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, moodAnalyzerException.exceptionType);
         }
@@ -94,7 +93,7 @@ public class MoodAnalyzerTest {
     @Test
     public void givenClass_whenConstructor_Improper_withParameter_shouldThrowException() {
         try {
-            MoodAnalyzerFactory.createMoodAnalyzer(null);
+            MoodAnalyzerReflector.createMoodAnalyzer(null);
         } catch (MoodAnalyzerException moodAnalyzerException) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, moodAnalyzerException.exceptionType);
         }
@@ -102,14 +101,14 @@ public class MoodAnalyzerTest {
 
     @Test
     public void givenSadMood_shouldReturnSad_usingReflection() {
-        String mood = MoodAnalyzerFactory.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "I am in sad mood");
+        String mood = MoodAnalyzerReflector.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "I am in sad mood");
         Assert.assertEquals("SAD", mood);
     }
 
     @Test
     public void givenSadMood_shouldReturnSad_improperMood_usingReflection() {
         try {
-            MoodAnalyzerFactory.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer","analyseMood","I am in a sad mood ");
+            MoodAnalyzerReflector.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer","analyseMood","I am in a sad mood ");
         }
         catch(NoSuchMethodException noSuchMethodException)
         {
