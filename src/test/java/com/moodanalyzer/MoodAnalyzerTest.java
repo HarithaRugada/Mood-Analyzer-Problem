@@ -60,8 +60,7 @@ public class MoodAnalyzerTest {
     }
 
     @Test
-    public void givenClass_whenConstructor_Improper_shouldThrowException()
-    {
+    public void givenClass_whenConstructor_Improper_shouldThrowException() {
         try {
             MoodAnalyzerFactory.createMoodAnalyzer(null);
         } catch (MoodAnalyzerException moodAnalyzerException) {
@@ -93,12 +92,28 @@ public class MoodAnalyzerTest {
     }
 
     @Test
-    public void givenClass_whenConstructor_Improper_withParameter_shouldThrowException()
-    {
+    public void givenClass_whenConstructor_Improper_withParameter_shouldThrowException() {
         try {
             MoodAnalyzerFactory.createMoodAnalyzer(null);
         } catch (MoodAnalyzerException moodAnalyzerException) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, moodAnalyzerException.exceptionType);
+        }
+    }
+
+    @Test
+    public void givenSadMood_shouldReturnSad_usingReflection() {
+        String mood = MoodAnalyzerFactory.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "I am in sad mood");
+        Assert.assertEquals("SAD", mood);
+    }
+
+    @Test
+    public void givenSadMood_shouldReturnSad_improperMood_usingReflection() {
+        try {
+            MoodAnalyzerFactory.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer","analyseMood","I am in a sad mood ");
+        }
+        catch(NoSuchMethodException noSuchMethodException)
+        {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD,noSuchMethodException.exceptionType);
         }
     }
 }

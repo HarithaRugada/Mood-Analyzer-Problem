@@ -2,6 +2,7 @@ package com.moodanalyzer;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class MoodAnalyzerFactory {
 
@@ -28,5 +29,24 @@ public class MoodAnalyzerFactory {
             throw new MoodAnalyzerException("Class Not Found", MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS);
         }
         return null;
+    }
+
+    public static String invokeAnalyzeMood(String className, String methodName, String message) {
+        String mood = null;
+        try {
+            Method methods = MoodAnalyzer.class.getMethod(methodName);
+            MoodAnalyzer moodAnalyzer = createMoodAnalyzer(message);
+            mood = (String) methods.invoke(moodAnalyzer);
+
+        } catch (NoSuchMethodException noSuchMethodException) {
+            throw new MoodAnalyzerException("Method Not Found", MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD);
+        } catch (MoodAnalyzerException moodAnalyzerException) {
+            moodAnalyzerException.printStackTrace();
+        } catch (IllegalAccessException illegalAccessException) {
+            illegalAccessException.printStackTrace();
+        } catch (InvocationTargetException invocationTargetException) {
+            invocationTargetException.printStackTrace();
+        }
+        return mood;
     }
 }
