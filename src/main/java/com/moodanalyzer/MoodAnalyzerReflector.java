@@ -23,10 +23,8 @@ public class MoodAnalyzerReflector {
         } catch (InvocationTargetException invocationTargetException) {
             invocationTargetException.printStackTrace();
         } catch (NoSuchMethodException noSuchMethodException) {
-            //noSuchMethodException.printStackTrace();
             throw new MoodAnalyzerException("Method Not Found", MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD);
         } catch (ClassNotFoundException classNotFoundException) {
-            //classNotFoundException.printStackTrace();
             throw new MoodAnalyzerException("Class Not Found", MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS);
         }
         return null;
@@ -60,9 +58,7 @@ public class MoodAnalyzerReflector {
             else
                 field1.set(message, "happy");
             field1.set(message, "happy");
-            // mood = invokeAnalyzeMood(className, methodName, message);
-        } catch (NoSuchFieldException noSuchFieldException) {
-            //throw new MoodAnalyzerException("Field Not Found", MoodAnalyzerException.ExceptionType.NO_FIELD);
+            } catch (NoSuchFieldException noSuchFieldException) {
             noSuchFieldException.printStackTrace();
         } catch (IllegalAccessException illegalAccessException) {
             illegalAccessException.printStackTrace();
