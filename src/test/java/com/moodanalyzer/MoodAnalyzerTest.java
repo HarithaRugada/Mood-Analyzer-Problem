@@ -40,7 +40,7 @@ public class MoodAnalyzerTest {
     public void givenMoodAnalyzerClass_WhenProper_shouldReturnObject() {
         //String mood=moodAnalyzer.analyzeMood();
         //Assert.assertEquals("HAPPY",mood);
-        MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer();
+        MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer("happy mood");
         try {
             String mood = moodAnalyzer.analyzeMood();
             Assert.assertEquals("HAPPY", mood);
@@ -53,7 +53,7 @@ public class MoodAnalyzerTest {
     public void givenClassName_whenImproper_shouldThrowException() {
         //MoodAnalyzer moodAnalyzer=null;
         try {
-            MoodAnalyzerFactory.createMoodAnalyzer();
+            MoodAnalyzerFactory.createMoodAnalyzer(null);
         } catch (MoodAnalyzerException moodAnalyzerException) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, moodAnalyzerException.exceptionType);
         }
@@ -63,7 +63,7 @@ public class MoodAnalyzerTest {
     public void givenClass_whenConstructor_Improper_shouldThrowException()
     {
         try {
-            MoodAnalyzerFactory.createMoodAnalyzer();
+            MoodAnalyzerFactory.createMoodAnalyzer(null);
         } catch (MoodAnalyzerException moodAnalyzerException) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, moodAnalyzerException.exceptionType);
         }
