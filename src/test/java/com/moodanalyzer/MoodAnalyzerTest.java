@@ -68,4 +68,37 @@ public class MoodAnalyzerTest {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, moodAnalyzerException.exceptionType);
         }
     }
+
+    @Test
+    public void givenMoodAnalyzerClass_WhenProper_withParameter_shouldReturnObject() {
+        //String mood=moodAnalyzer.analyzeMood();
+        //Assert.assertEquals("HAPPY",mood);
+        MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer("I am in a sad mood");
+        try {
+            String mood = moodAnalyzer.analyzeMood();
+            Assert.assertEquals("SAD", mood);
+        } catch (MoodAnalyzerException moodAnalyzerException) {
+            moodAnalyzerException.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenClassName_whenImproper_withParameter_shouldThrowException() {
+        //MoodAnalyzer moodAnalyzer=null;
+        try {
+            MoodAnalyzerFactory.createMoodAnalyzer(null);
+        } catch (MoodAnalyzerException moodAnalyzerException) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, moodAnalyzerException.exceptionType);
+        }
+    }
+
+    @Test
+    public void givenClass_whenConstructor_Improper_withParameter_shouldThrowException()
+    {
+        try {
+            MoodAnalyzerFactory.createMoodAnalyzer(null);
+        } catch (MoodAnalyzerException moodAnalyzerException) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, moodAnalyzerException.exceptionType);
+        }
+    }
 }
