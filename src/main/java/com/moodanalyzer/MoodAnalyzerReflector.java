@@ -59,9 +59,11 @@ public class MoodAnalyzerReflector {
                 field1.set(message, "sad");
             else
                 field1.set(message, "happy");
-            mood = invokeAnalyzeMood(className, methodName, message);
+            field1.set(message, "happy");
+            // mood = invokeAnalyzeMood(className, methodName, message);
         } catch (NoSuchFieldException noSuchFieldException) {
-            throw new MoodAnalyzerException("Field Not Found", MoodAnalyzerException.ExceptionType.NO_FIELD);
+            //throw new MoodAnalyzerException("Field Not Found", MoodAnalyzerException.ExceptionType.NO_FIELD);
+            noSuchFieldException.printStackTrace();
         } catch (IllegalAccessException illegalAccessException) {
             illegalAccessException.printStackTrace();
         } catch (MoodAnalyzerException moodAnalyzerException) {

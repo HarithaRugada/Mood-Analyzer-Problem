@@ -116,15 +116,15 @@ public class MoodAnalyzerTest {
 
     @Test
     public void givenHappyMood_shouldReturnHappy_throughReflector() {
-        MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "message", "happy mood");
-        Object analyseMood=MoodAnalyzerReflector.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer","analyzeMood","happy mood");
-        Assert.assertEquals("HAPPY",analyseMood);
+        String mood = MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "in a happy mood", "message");
+        Object analyseMood = MoodAnalyzerReflector.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "happy mood");
+        Assert.assertEquals("HAPPY", analyseMood);
     }
 
     @Test
     public void givenField_improper_shouldThrowException() {
         try {
-            MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "nill", "happy mood");
+            MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "happy mood", "");
         } catch (MoodAnalyzerException moodAnalyzerException) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_FIELD, moodAnalyzerException.exceptionType);
         }
