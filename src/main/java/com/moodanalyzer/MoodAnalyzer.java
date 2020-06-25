@@ -2,19 +2,20 @@ package com.moodanalyzer;
 
 public class MoodAnalyzer {
     String message;
-    public MoodAnalyzer()
-    {
-        this.message="";
+
+    public MoodAnalyzer() {
+        this.message = "";
     }
-    public MoodAnalyzer(String message)
-    {
-        this.message=message;
+
+    public MoodAnalyzer(String message) {
+        this.message = message;
     }
-    public String MoodAnalyzer(String message) throws MoodAnalyzerException
-    {
-        this.message=message;
+
+    public String MoodAnalyzer(String message) throws MoodAnalyzerException {
+        this.message = message;
         return analyzeMood();
     }
+
     public String analyzeMood() {
         try {
             if (message.length() == 0) {

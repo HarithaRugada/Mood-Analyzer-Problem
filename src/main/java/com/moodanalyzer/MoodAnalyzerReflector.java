@@ -1,6 +1,7 @@
 package com.moodanalyzer;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -46,6 +47,25 @@ public class MoodAnalyzerReflector {
             illegalAccessException.printStackTrace();
         } catch (InvocationTargetException invocationTargetException) {
             invocationTargetException.printStackTrace();
+        }
+        return mood;
+    }
+
+    public static String dynamicMood(String className, String methodName, String message, String field) {
+        String mood = null;
+        try {
+            Field field1 = MoodAnalyzer.class.getField(field);
+            if (message.contains("sad"))
+                field1.set(message, "sad");
+            else
+                field1.set(message, "happy");
+            mood = invokeAnalyzeMood(className, methodName, message);
+        } catch (NoSuchFieldException noSuchFieldException) {
+            throw new MoodAnalyzerException("Field Not Found", MoodAnalyzerException.ExceptionType.NO_FIELD);
+        } catch (IllegalAccessException illegalAccessException) {
+            illegalAccessException.printStackTrace();
+        } catch (MoodAnalyzerException moodAnalyzerException) {
+            moodAnalyzerException.printStackTrace();
         }
         return mood;
     }

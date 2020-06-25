@@ -108,11 +108,34 @@ public class MoodAnalyzerTest {
     @Test
     public void givenSadMood_shouldReturnSad_improperMood_usingReflection() {
         try {
-            MoodAnalyzerReflector.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer","analyseMood","I am in a sad mood ");
+            MoodAnalyzerReflector.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer", "analyseMood", "I am in a sad mood ");
+        } catch (MoodAnalyzerException moodAnalyzerException) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, moodAnalyzerException.exceptionType);
         }
-        catch(NoSuchMethodException noSuchMethodException)
-        {
-            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD,noSuchMethodException.exceptionType);
+    }
+
+    @Test
+    public void givenHappyMood_shouldReturnHappy_throughReflector() {
+        MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "message", "happy mood");
+        Object analyseMood=MoodAnalyzerReflector.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer","analyzeMood","happy mood");
+        Assert.assertEquals("HAPPY",analyseMood);
+    }
+
+    @Test
+    public void givenField_improper_shouldThrowException() {
+        try {
+            MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "nill", "happy mood");
+        } catch (MoodAnalyzerException moodAnalyzerException) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_FIELD, moodAnalyzerException.exceptionType);
+        }
+    }
+
+    @Test
+    public void givenField_null_shouldThrowException() {
+        try {
+            MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", null, "sad mood");
+        } catch (MoodAnalyzerException moodAnalyzerException) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.ENTERED_NULL, moodAnalyzerException.exceptionType);
         }
     }
 }
