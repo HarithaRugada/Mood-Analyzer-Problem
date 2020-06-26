@@ -116,9 +116,9 @@ public class MoodAnalyzerTest {
 
     @Test
     public void givenHappyMood_shouldReturnHappy_throughReflector() {
-        String mood = MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "in a happy mood", "message");
-        Object analyseMood = MoodAnalyzerReflector.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "happy mood");
-        Assert.assertEquals("HAPPY", analyseMood);
+        MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "in a happy mood", "message");
+        String mood = MoodAnalyzerReflector.invokeAnalyzeMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "happy mood");
+        Assert.assertEquals("HAPPY", mood);
     }
 
     @Test
@@ -133,9 +133,9 @@ public class MoodAnalyzerTest {
     @Test
     public void givenField_null_shouldThrowException() {
         try {
-            MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", null, "sad mood");
-        } catch (MoodAnalyzerException moodAnalyzerException) {
-            Assert.assertEquals(MoodAnalyzerException.ExceptionType.ENTERED_NULL, moodAnalyzerException.exceptionType);
+            MoodAnalyzerReflector.dynamicMood("com.moodanalyzer.MoodAnalyzer", "analyzeMood", "happy mood", null);
+        } catch (NullPointerException nullPointerException) {
+            System.out.println("Null Pointer Exception");
         }
     }
 }
